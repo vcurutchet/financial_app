@@ -1,4 +1,4 @@
-import { useState, useMemo, cloneElement } from 'react'
+import { useState, useMemo } from 'react'
 import { Plus, Wallet, TrendingUp, TrendingDown, Target, ChevronRight } from 'lucide-react'
 import { useProfiles } from '../hooks/useProfiles'
 import { useAccounts } from '../hooks/useAccounts'
@@ -6,6 +6,7 @@ import { useCurrentFiscalYear } from '../hooks/useFiscalYears'
 import { useTransactions, useAddTransaction, useDeleteTransaction } from '../hooks/useTransactions'
 import { useCategories } from '../hooks/useCategories'
 import TransactionCard from '../components/TransactionCard'
+import Field from '../components/Field'
 
 const fmt = (n) =>
   new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n ?? 0)
@@ -281,20 +282,3 @@ export default function Pro() {
   )
 }
 
-function Field({ label, children }) {
-  const inputStyle = {
-    background: 'var(--surface-2)',
-    border: '1px solid var(--border)',
-    color: 'var(--text)',
-    borderRadius: 'var(--radius)',
-    padding: '0.45rem 0.6rem',
-    width: '100%',
-    font: 'inherit',
-  }
-  return (
-    <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-      <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>{label}</span>
-      {cloneElement(children, { style: inputStyle })}
-    </label>
-  )
-}

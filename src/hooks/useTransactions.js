@@ -18,11 +18,13 @@ async function fetchTransactions(filters = {}) {
   if (filters.type) query = query.eq('type', filters.type)
   if (filters.direction) query = query.eq('direction', filters.direction)
   if (filters.fiscalYearId) query = query.eq('fiscal_year_id', filters.fiscalYearId)
+  if (filters.since) query = query.gte('date', filters.since)
   if (filters.month) {
     const [year, month] = filters.month.split('-')
     const next = String(Number(month) + 1).padStart(2, '0')
     query = query.gte('date', `${year}-${month}-01`).lt('date', `${year}-${next}-01`)
   }
+  if (filters.limit) query = query.limit(filters.limit)
 
   const { data, error } = await query
   if (error) throw error
