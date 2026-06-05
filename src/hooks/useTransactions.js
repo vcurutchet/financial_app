@@ -14,10 +14,7 @@ async function fetchTransactions(filters = {}) {
     `)
     .order('date', { ascending: false })
 
-  if (filters.profileType) {
-    // filter via join on profiles.type
-    query = query.eq('profile.type', filters.profileType)
-  }
+  if (filters.profileId) query = query.eq('profile_id', filters.profileId)
   if (filters.type) query = query.eq('type', filters.type)
   if (filters.direction) query = query.eq('direction', filters.direction)
   if (filters.fiscalYearId) query = query.eq('fiscal_year_id', filters.fiscalYearId)
